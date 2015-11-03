@@ -7,7 +7,7 @@ require 'gravatar-ultimate'
 set :full_name, "Vít Bareš"
 set :subtitle, "Web Developer"
 set :city, "Prague, Czech Republic"
-set :resume, nil # Set to filename of resume PDF in source directory.
+set :personal_website, "www.geth.cz"
 set :google_analytics_tracking_id, "UA-111111111-11"
 
 ###
@@ -25,6 +25,8 @@ set :twitter_username, "Gethrok"
 set :linkedin_profile_name, "vitbares"
 set :github_username, "gethrok"
 set :gravatar_email_address, "vit.bares@hotmail.com"
+set :contact_mail, "vit.bares@hotmail.com"
+set :skills_intro, "INTRO"
 
 Time.zone = "Europe/Prague"
 

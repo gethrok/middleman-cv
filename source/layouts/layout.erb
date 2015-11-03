@@ -33,7 +33,7 @@
     <!-- ******HEADER****** --> 
     <header class="header">
         <div class="container">                       
-            <img class="profile-image img-responsive pull-left img-circle	" src="<%= Gravatar.new(gravatar_email_address).image_url(size: 200)=%>" alt="James Lee" />
+            <img class="profile-image img-responsive pull-left img-circle	" src="<%= Gravatar.new(gravatar_email_address).image_url(size: 200)=%>" alt="<%= full_name =%>" />
             <div class="profile-content pull-left">
                 <h1 class="name"><%= full_name =%></h1>
                 <h2 class="desc"><%= subtitle =%></h2>   
@@ -61,7 +61,7 @@
                                  
                 </ul> 
             </div><!--//profile-->
-            <a class="btn btn-cta-primary pull-right" href="http://themes.3rdwavemedia.com/" target="_blank"><i class="fa fa-paper-plane"></i> Contact Me</a>              
+            <a class="btn btn-cta-primary pull-right" href="mailto:<%=contact_mail=%>" target="_blank"><i class="fa fa-paper-plane"></i> Contact Me</a>              
         </div><!--//container-->
     </header><!--//header-->
     
@@ -172,16 +172,6 @@
                         </div><!--//content-->  
                     </div><!--//section-inner-->                 
                 </section><!--//section-->
-                <section class="github section">
-                    <div class="section-inner">
-                        <h2 class="heading">My GitHub</h2>
-                        <p>You can embed your GitHub activities using Casey Scarborough's <a href="http://caseyscarborough.com/projects/github-activity/" target="_blank">GitHub Activity Stream</a> widget.        
-                        <!--//Usage: http://caseyscarborough.com/projects/github-activity/ -->                       
-                        <div id="ghfeed" class="ghfeed">
-                        </div><!--//ghfeed-->
-                        
-                    </div><!--//secton-inner-->
-                </section><!--//section-->
             </div><!--//primary-->
             <div class="secondary col-md-4 col-sm-12 col-xs-12">
                  <aside class="info aside section">
@@ -189,9 +179,9 @@
                         <h2 class="heading sr-only">Basic Information</h2>
                         <div class="content">
                             <ul class="list-unstyled">
-                                <li><i class="fa fa-map-marker"></i><span class="sr-only">Location:</span>San Francisco, US</li>
-                                <li><i class="fa fa-envelope-o"></i><span class="sr-only">Email:</span><a href="#">jameslee@website.com</a></li>
-                                <li><i class="fa fa-link"></i><span class="sr-only">Website:</span><a href="#">http://www.website.com</a></li>
+                                <li><i class="fa fa-map-marker"></i><span class="sr-only">Location:</span><%= city =%></li>
+                                <li><i class="fa fa-envelope-o"></i><span class="sr-only">Email:</span><a href="#"><%= contact_mail =%></a></li>
+                                <li><i class="fa fa-link"></i><span class="sr-only">Website:</span><a href="http://<%= personal_website =%>" target="_blank"><%= personal_website =%></a></li>
                             </ul>
                         </div><!--//content-->  
                     </div><!--//section-inner-->                 
@@ -202,43 +192,18 @@
                         <h2 class="heading">Skills</h2>
                         <div class="content">
                             <p class="intro">
-                                Intro about your skills goes here. Keep the list lean and only show your primary skillset. You can always provide a link to your Linkedin or Coderwall profile so people can get more info there.</p>
-                            
+                                <%= skills_intro =%>
                             <div class="skillset">
-                               
+                                 <% data.skills.each do |skill| %>
                                 <div class="item">
-                                    <h3 class="level-title">Python &amp; Django<span class="level-label" data-toggle="tooltip" data-placement="left" data-animation="true" title="You can use the tooltip to add more info...">Expert</span></h3>
+                                    <h3 class="level-title"><%= skill.title =%><span class="level-label" data-toggle="tooltip" data-placement="left" data-animation="true" title="You can use the tooltip to add more info..."><%= skill.level =%></span></h3>
                                     <div class="level-bar">
-                                        <div class="level-bar-inner" data-level="96%">
+                                        <div class="level-bar-inner" data-level="<%=skill.datalevel%>">
                                         </div>                                      
                                     </div><!--//level-bar-->                                 
                                 </div><!--//item-->
+                                <% end %>
                                 
-                                <div class="item">
-                                    <h3 class="level-title">Javascript &amp; jQuery<span class="level-label">Expert</span></h3>
-                                    <div class="level-bar">
-                                        <div class="level-bar-inner" data-level="96%">
-                                        </div>                                      
-                                    </div><!--//level-bar-->                                 
-                                </div><!--//item-->
-                                
-                                <div class="item">
-                                    <h3 class="level-title">HTML5, CSS3, SASS &amp; LESS<span class="level-label">Expert</span></h3>
-                                    <div class="level-bar">
-                                        <div class="level-bar-inner" data-level="96%">
-                                        </div>                                      
-                                    </div><!--//level-bar-->                                 
-                                </div><!--//item-->
-                                
-                                <div class="item">
-                                    <h3 class="level-title">Ruby on Rails<span class="level-label">Pro</span></h3>
-                                    <div class="level-bar">
-                                        <div class="level-bar-inner" data-level="85%">
-                                        </div>                                      
-                                    </div><!--//level-bar-->                                 
-                                </div><!--//item-->
-                                
-                                <p><a class="more-link" href="#"><i class="fa fa-external-link"></i> More on Coderwall</a></p> 
                             </div>              
                         </div><!--//content-->  
                     </div><!--//section-inner-->                 
@@ -248,14 +213,16 @@
                     <div class="section-inner">
                         <h2 class="heading">Testimonials</h2>
                         <div class="content">
+                            
+                        <% data.testimonials.each do |testimonial| %>
                             <div class="item">
                                 <blockquote class="quote">                                  
-                                    <p><i class="fa fa-quote-left"></i>James is an excellent software engineer and he is passionate about what he does. You can totally count on him to deliver your projects!</p>
+                                    <p><i class="fa fa-quote-left"></i><%= testimonial.content =%></p>
                                 </blockquote>                
-                                <p class="source"><span class="name">Tim Adams</span><br /><span class="title">Curabitur commodo</span></p>                                                             
+                                <p class="source"><span class="name"><%= testimonial.author =%></span><br /><span class="title"><%= testimonial.company =%></span></p>                                                             
                             </div><!--//item-->
-                            
-                            <p><a class="more-link" href="#"><i class="fa fa-external-link"></i> More on Linkedin</a></p> 
+                        <% end %>
+                            <p><a class="more-link" href="<%="http://linkedin.com/in/#{ linkedin_profile_name }"=%>"><i class="fa fa-external-link"></i> More on Linkedin</a></p> 
                             
                         </div><!--//content-->
                     </div><!--//section-inner-->
@@ -265,14 +232,13 @@
                     <div class="section-inner">
                         <h2 class="heading">Education</h2>
                         <div class="content">
+                         <% data.education.each do |education| %>    
                             <div class="item">                      
-                                <h3 class="title"><i class="fa fa-graduation-cap"></i> MSc Psychology and Computer Science</h3>
-                                <h4 class="university">University College London <span class="year">(2011-2012)</span></h4>
+                                <h3 class="title"><i class="fa fa-graduation-cap"></i><%= education.programme =%></h3>
+                                <h4 class="university"><%= education.school =%> <span class="year">(<%= education.period =%>)</span></h4>
                             </div><!--//item-->
-                            <div class="item">
-                                <h3 class="title"><i class="fa fa-graduation-cap"></i> BSc Computer Science</h3>
-                                <h4 class="university">University of Bristol <span class="year">(2008-2011)</span></h4>
-                            </div><!--//item-->
+                         <% end %>  
+                            
                         </div><!--//content-->
                     </div><!--//section-inner-->
                 </aside><!--//section-->
@@ -282,38 +248,27 @@
                         <h2 class="heading">Languages</h2>
                         <div class="content">
                             <ul class="list-unstyled">
+                            
+                             <% data.languages.each do |language| %>      
                                 <li class="item">
-                                    <span class="title"><strong>English:</strong></span>
-                                    <span class="level">Native Speaker <br class="visible-xs"/><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> </span>
+                                    <span class="title"><strong><%= language.name =%>: </strong></span>
+                                    <span class="level"><%= language.level =%> </span>
                                 </li><!--//item-->
-                                <li class="item">
-                                    <span class="title"><strong>Spanish:</strong></span>
-                                    <span class="level">Professional Proficiency <br class="visible-sm visible-xs"/><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-half"></i></span>
-                                </li><!--//item-->
+                            <% end %>
                             </ul>
                         </div><!--//content-->
                     </div><!--//section-inner-->
                 </aside><!--//section-->
                 
-                <aside class="blog aside section">
-                    <div class="section-inner">
-                        <h2 class="heading">Latest Blog Posts</h2>
-                        <p>You can use Sascha Depold's <a href="https://github.com/sdepold/jquery-rss" target="_blank">jQuery RSS plugin</a> to pull in your blog post feeds.</p>
-                        <div id="rss-feeds" class="content">
-
-                        </div><!--//content-->
-                    </div><!--//section-inner-->
-                </aside><!--//section-->
                 
                 <aside class="list music aside section">
                     <div class="section-inner">
                         <h2 class="heading">Favourite coding music</h2>
                         <div class="content">
                             <ul class="list-unstyled">
-                                <li><i class="fa fa-headphones"></i> <a href="#">Etiam hendrerit urna nunc</a></li>
-                                <li><i class="fa fa-headphones"></i> <a href="#">Ut sollicitudin in mauris non auctor</a></li>
-                                <li><i class="fa fa-headphones"></i> <a href="#">Etiam hendrerit urna nunc</a></li>
-                                <li><i class="fa fa-headphones"></i> <a href="#">Duis et felis bibendum</a></li>
+                            <% data.codingmusic.each do |music| %>   
+                                <li><i class="fa fa-headphones"></i> <a target="_blank" href="<%= music.link =%>"><%= music.name %></a></li>
+                            <%end%>
                             </ul>
                         </div><!--//content-->
                     </div><!--//section-inner-->
@@ -324,39 +279,14 @@
                         <h2 class="heading">Conferences</h2>
                         <div class="content">
                             <ul class="list-unstyled">
-                                <li><i class="fa fa-calendar"></i> <a href="https://developer.apple.com/wwdc/" target="_blank">WWDC 2014</a> (San Francisco)</li>
-                                <li><i class="fa fa-calendar"></i> <a href="http://hive.aigaseattle.org/">Hive</a> (Seattle)</li>
+                              <% data.conferences.each do |conference| %>    
+                                <li><i class="fa fa-calendar"></i> <a href="<%= conference.link =%>" target="_blank"><%= conference.name =%></a> <% if conference.location %> (<%= conference.location =%>)<%end%></li>
+                              <%end%>
                             </ul>
                         </div><!--//content-->
                     </div><!--//section-inner-->
                 </aside><!--//section-->
                 
-                <aside class="credits aside section">
-                    <div class="section-inner">
-                        <h2 class="heading">Credits</h2>
-                        <div class="content">
-                            <ul class="list-unstyled">
-                                <li><a href="http://getbootstrap.com/" target="_blank"><i class="fa fa-external-link"></i> Bootstrap 3.2</a></li>
-                                <li><a href="http://fortawesome.github.io/Font-Awesome/" target="_blank"><i class="fa fa-external-link"></i> FontAwsome 4.1</a></li>
-                                <li><a href="http://jquery.com/" target="_blank"><i class="fa fa-external-link"></i> jQuery</a></li>
-                                <li><a href="http://caseyscarborough.com/projects/github-activity/" target="_blank"><i class="fa fa-external-link"></i> GitHub Activity Stream</a></li>
-                                
-                                <li><a href="https://github.com/sdepold/jquery-rss" target="_blank"><i class="fa fa-external-link"></i> jQuery RSS</a></li>
-                                
-                                <li>Profile image: <a href="https://www.flickr.com/photos/dotbenjamin/2577394151" target="_blank">Ben Smith</a></li>
-                                <li>iPad and iPhone mocks: <a href="https://dribbble.com/perlerar" target="_blank">Regy Perlera</a></li>
-                                
-                            </ul>
-                            
-                            <hr/>
-                            
-                             <p>This responsive HTML5 CSS3 site template is handcrafted by UX designer <a href="https://www.linkedin.com/in/xiaoying" target="_blank">Xiaoying Riley</a> at <a href="http://themes.3rdwavemedia.com/" target="_blank">3rd Wave Media</a> for developers and is <strong>FREE</strong> under the <a class="dotted-link" href="http://creativecommons.org/licenses/by/3.0/" target="_blank">Creative Commons Attribution 3.0 License</a></p>
-                             <p>We will improve or add new features to this template based on users' feedback so follow us on twitter to get notified when a new version is out!</p>
-                            <a class="btn btn-cta-secondary btn-follow" href="https://twitter.com/3rdwave_themes" target="_blank"><i class="fa fa-twitter"></i> Follow us</a>
-                            <a class="btn btn-cta-primary btn-download" href="http://themes.3rdwavemedia.com/website-templates/free-responsive-website-template-for-developers/" target="_blank"><i class="fa fa-download"></i> I want to download</a>
-                        </div><!--//content-->
-                    </div><!--//section-inner-->
-                </aside><!--//section-->
               
             </div><!--//secondary-->    
         </div><!--//row-->
@@ -369,16 +299,12 @@
         </div><!--//container-->
     </footer><!--//footer-->
  
-    <!-- Javascript -->          
-    <script type="text/javascript" src="assets/plugins/jquery-1.11.2.min.js"></script>
-    <script type="text/javascript" src="assets/plugins/jquery-migrate-1.2.1.min.js"></script>
-    <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>    
-    <script type="text/javascript" src="assets/plugins/jquery-rss/dist/jquery.rss.min.js"></script> 
-    <!-- github activity plugin -->
-    <script type="text/javascript" src="assets/plugins/github-activity/dist/mustache/mustache.min.js"></script>
-    <script type="text/javascript" src="assets/plugins/github-activity/dist/github-activity-0.1.1.min.js"></script>
-    <!-- custom js -->
-    <script type="text/javascript" src="assets/js/main.js"></script>            
+    <!-- Javascript -->   
+    
+    <%= javascript_include_tag "plugins/jquery-1.11.2.min", "plugins/jquery-migrate-1.2.1.min", "plugins/bootstrap/js/bootstrap.min", "plugins/jquery-rss/dist/jquery.rss.min", "main"
+    %>
+    
+    
 </body>
 </html> 
 
