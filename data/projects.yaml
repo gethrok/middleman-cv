@@ -1,0 +1,14 @@
+- 
+  name: My.Section
+  url: https://my.esnculs.cz
+  screenshot: esn-culs-logo-black.png
+  featured: true
+  description: |
+                 My.Section is information portal for ESN sections, which allow sections to manage
+                 arriving students and its members. 
+- 
+  name: International Student System
+  url: http://iss.buddygo.cz
+  featured: false
+  description: |
+                 
